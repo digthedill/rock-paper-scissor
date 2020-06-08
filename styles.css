@@ -38,9 +38,20 @@ body {
         padding: 20px;
         border-style: dotted;
         background-color: white;   
-        margin-top: 20px;     
-
+        margin-top: 20px;    
     }
+    #resultDetails {
+        margin: auto;
+        border: black;
+        width: 40%;
+        padding: 20px;
+        border-style: dotted;
+        background-color: white;   
+        
+    }
+
+
+
     #container {
         margin: 5px, 5px;
         display: inline-flex;

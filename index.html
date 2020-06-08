@@ -18,7 +18,8 @@
 <button class="btn" id="rock">rock</button>
 <button class="btn" id="paper">paper</button>
 <button class="btn" id="scissors">scissors</button>
-<div id="results">S E L E C T  Y O U R  F A T E </div>
+<div id="results"><b>S</b> E L E C T  <b>Y</b> O U R  <b>F</b> A T E </div>
+<div id="resultDetails"><b>C</b> H O O S E  <b>F</b> R O M  <b>T</b> H E  <b>B</b> U T T O N S  <b>A</b> B O V E</div>
 <div id = "container">
     <div id="computerScore">computer: 0</div>   
     <div id="roundNumber">round: 0</div>
@@ -27,21 +28,13 @@
 
 </div>
 
-    <script>        
-    function random(number) {
-        return Math.floor(Math.random()*number);
+<script>        
+function random(number) {
+    return Math.floor(Math.random()*number);
 }
-  function computerPlay() {
-        options = ['rock', 'paper', 'scissors'];
-        return options[random(3)];
-}
-    function clicker(e) {
-        const btn = document.querySelector(`.btn[id="${e.target.id}"]`);
-        if (!btn) return;
-        let answer = btn.id.toString();
-        playRound(answer, computerPlay());
-        keepScore();
-
+function computerPlay() {
+    options = ['rock', 'paper', 'scissors'];
+    return options[random(3)];
 }
 
 
@@ -52,47 +45,58 @@ let roundNumber = document.getElementById("roundNumber");
 
 
         // create scores
-    let computerScore = 0
-    let playerScore = 0
-    let gameCount = 0
+let computerScore = 0
+let playerScore = 0
+let gameCount = 0
 
+let tieText = 'You tied the almighty computer! Try again'
+let compText = 'You are nothing in the eyes of the computer. You lose.'
+let playerText = 'The legend is true. The one who can defeat the computer. Do not fail us mortals.'
 
     //rounds functioned here
 function playRound(playerSelection, computerSelection) {
 
-if (computerSelection === 'rock' && playerSelection === 'rock' ||
-    computerSelection === 'paper' && playerSelection === 'paper' ||
-    computerSelection === 'scissors' && playerSelection === 'scissors') 
-        results.textContent = `You tied the almighty computer! Try again 
-         Your ${ playerSelection} vs the computer\'s ${computerSelection}`,
-        gameCount++, 
-        compDisplay.textContent = 'computer: ' + computerScore,
-        playerDisplay.textContent = 'you: ' + playerScore,
-        roundNumber.textContent = 'round: ' + gameCount
+    if (computerSelection === 'rock' && playerSelection === 'rock' ||
+        computerSelection === 'paper' && playerSelection === 'paper' ||
+        computerSelection === 'scissors' && playerSelection === 'scissors') {
+            results.textContent = `Your ${ playerSelection} vs the computer\'s ${computerSelection}`,
+            resultDetails.textContent = `${tieText}`,
+            gameCount++, 
+            compDisplay.textContent = 'computer: ' + computerScore,
+            playerDisplay.textContent = 'you: ' + playerScore,
+            roundNumber.textContent = 'round: ' + gameCount
+        }
     
-if (computerSelection === 'paper' && playerSelection === 'rock'||
+    if (computerSelection === 'paper' && playerSelection === 'rock'||
         computerSelection === 'rock' && playerSelection === 'scissors' ||
-        computerSelection === 'scissors' && playerSelection === 'paper') 
-            results.textContent = `You are nothing in the eyes of the computer. You lose. 
-            Your ${ playerSelection} vs the computer\'s ${computerSelection}`,
+        computerSelection === 'scissors' && playerSelection === 'paper') { 
+              results.textContent = `Your ${ playerSelection} vs the computer\'s ${computerSelection}`
+              resultDetails.textContent = `${compText}`,
               gameCount++,
               computerScore++,
               compDisplay.textContent = 'computer: ' + computerScore,
               playerDisplay.textContent = 'you: ' + playerScore,
               roundNumber.textContent = 'round: ' + gameCount
-        
-if (computerSelection === 'rock' && playerSelection === 'paper'||
+        }
+    if (computerSelection === 'rock' && playerSelection === 'paper'||
         computerSelection === 'scissors' && playerSelection === 'rock' ||
-        computerSelection === 'paper' && playerSelection === 'scissors') 
-{
-            results.textContent = `The legend is true. The one who can defeat the computer. Do not fail us mortals. 
-            Your ${ playerSelection} vs the computer\'s ${computerSelection}`,
+        computerSelection === 'paper' && playerSelection === 'scissors') {
+            results.textContent = `Your ${ playerSelection} vs the computer\'s ${computerSelection}`,
+            resultDetails.textContent = `${playerText}`,
              gameCount++,
              playerScore++,
              compDisplay.textContent = 'computer: ' + computerScore,
-            playerDisplay.textContent = 'you: ' + playerScore,
-            roundNumber.textContent = 'round: ' + gameCount
+             playerDisplay.textContent = 'you: ' + playerScore,
+             roundNumber.textContent = 'round: ' + gameCount
+        }
 }
+
+function clicker(e) {
+    const btn = document.querySelector(`.btn[id="${e.target.id}"]`);
+    if (!btn) return;
+    let answer = btn.id.toString();
+    playRound(answer, computerPlay());
+    keepScore();
 }
 
 
